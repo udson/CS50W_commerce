@@ -11,3 +11,12 @@ class Categorie(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Listing(models.Model):
+    title = models.CharField()
+    description = models.TextField()
+    starting_bid = models.FloatField()
+
+    def __str__(self) -> str:
+        return self.title
