@@ -17,6 +17,7 @@ class Listing(models.Model):
     title = models.CharField()
     description = models.TextField()
     starting_bid = models.FloatField()
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.title
