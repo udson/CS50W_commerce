@@ -16,7 +16,7 @@ class Categorie(models.Model):
 class Listing(models.Model):
     title = models.CharField()
     description = models.TextField()
-    starting_bid = models.FloatField()
+    starting_price = models.DecimalField(decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
