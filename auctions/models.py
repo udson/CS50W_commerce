@@ -20,6 +20,7 @@ class Listing(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.PROTECT)
     title = models.CharField(max_length=50)
     description = models.TextField()
+    category = models.ForeignKey(to=Category, on_delete=models.PROTECT, blank=True, null=True)
     starting_price = models.DecimalField(max_digits=20, decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
 
