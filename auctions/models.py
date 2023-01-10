@@ -14,6 +14,7 @@ class Categorie(models.Model):
 
 
 class Listing(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.PROTECT)
     title = models.CharField()
     description = models.TextField()
     starting_price = models.DecimalField(decimal_places=2)
@@ -21,3 +22,13 @@ class Listing(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Bid(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.PROTECT)
+    listing = models.ForeignKey(to=Listing, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    value = models.DecimalField(decimal_places=2)
+
+    def __str__(self) -> str:
+        return f"{self.value} on {self.listing} by {self.user}"
