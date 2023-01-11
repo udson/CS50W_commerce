@@ -23,6 +23,7 @@ class Listing(models.Model):
     category = models.ForeignKey(to=Category, on_delete=models.PROTECT, blank=True, null=True)
     starting_price = models.DecimalField(max_digits=20, decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return self.title
