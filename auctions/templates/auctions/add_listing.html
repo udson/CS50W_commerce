@@ -1,0 +1,16 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <h1>Add New Listing</h1>
+    <form action="" method="post">
+        <input type="text" name="title" placeholder="Title">
+        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        <select name="category" id="category">
+            <option value="" selected>----</option>
+            <option value="Teste1">Teste1</option>
+            <option value="Teste2">Teste2</option>
+        </select>
+        <input type="text" placeholder="Starting price">
+        <input type="submit" value="Add">
+    </form>
+{% endblock body %}

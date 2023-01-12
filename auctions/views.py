@@ -11,10 +11,10 @@ def index(request):
     return render(request, "auctions/index.html")
 
 
-def new_listing(request):
+def add_listing(request):
     if request.method == "POST":
         pass
-    return render(request, "auctions/new_listing.html")
+    return render(request, "auctions/add_listing.html")
 
 
 def login_view(request):
