@@ -1,16 +1,41 @@
 {% extends 'auctions/layout.html' %}
 
 {% block body %}
-    <h1>Add New Listing</h1>
-    <form action="" method="post">
-        <input type="text" name="title" placeholder="Title">
-        <textarea name="description" id="description" cols="30" rows="10"></textarea>
-        <select name="category" id="category">
-            <option value="" selected>----</option>
-            <option value="Teste1">Teste1</option>
-            <option value="Teste2">Teste2</option>
-        </select>
-        <input type="text" placeholder="Starting price">
-        <input type="submit" value="Add">
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Add listing</h1>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input class="form-control" type="text" name="title" id="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" name="category" id="category">
+                            <option value="" selected>----</option>
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="starting_price">Starting price</label>
+                        <input type="text" class="form-control" name="starting_price" id="starting_price">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock body %}

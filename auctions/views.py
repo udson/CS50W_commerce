@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .forms import ListingForm
+from .models import User, Category
 
 
 def index(request):
@@ -14,7 +15,11 @@ def index(request):
 def add_listing(request):
     if request.method == "POST":
         pass
-    return render(request, "auctions/add_listing.html")
+
+    return render(request, "auctions/add_listing_copy.html", context={
+        "categories": Category.objects.all(),
+        "form": ListingForm(),
+    })
 
 
 def login_view(request):
