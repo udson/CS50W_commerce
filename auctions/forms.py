@@ -1,8 +1,17 @@
-from django.forms import ModelForm
+from django import forms
 from .models import Listing
 
+custom = {'class': 'form-control'}
 
-class ListingForm(ModelForm):
+class ListingForm(forms.ModelForm):
+    template_name = 'bootstrap_form_snippet.html'
+
     class Meta:
         model = Listing
         fields = ['title', 'description', 'category','starting_price',]
+        widgets = {
+            'title': forms.TextInput(attrs=custom),
+            'description': forms.Textarea(attrs=custom),
+            'category': forms.Select(attrs=custom),
+            'starting_price': forms.NumberInput(attrs=custom)
+        }

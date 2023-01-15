@@ -1,24 +1,34 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
 from .forms import ListingForm
-from .models import User, Category
+from .models import User, Listing
 
 
 def index(request):
     return render(request, "auctions/index.html")
 
-
+@login_required(login_url='/login')
 def add_listing(request):
+    form = ListingForm()
     if request.method == "POST":
-        pass
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            new_listing = Listing(
+                user=User.objects.get(pk=request.user.id), title=form.cleaned_data["title"],
+                description=form.cleaned_data["description"],
+                starting_price=form.cleaned_data["starting_price"],
+                category=form.cleaned_data['category']
+            )
+            new_listing.save()
+            return HttpResponseRedirect(reverse("index"))
 
-    return render(request, "auctions/add_listing_copy.html", context={
-        "categories": Category.objects.all(),
-        "form": ListingForm(),
+    return render(request, "auctions/add_listing.html", context={
+        "form": form,
     })
 
 
