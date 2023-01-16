@@ -10,8 +10,8 @@ from .models import User, Listing
 
 
 def index(request):
-    user = User.objects.get(username=request.user)
-    listings = Listing.objects.all()
+    listings = Listing.objects.filter(is_active=True)
+    
     return render(request, "auctions/index.html", context={
         "listings": listings,
     })
