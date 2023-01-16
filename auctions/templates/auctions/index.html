@@ -1,7 +1,29 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-
-    TODO
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Active Listings</h2>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+            {% for listing in listings %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <img src="https://dummyimage.com/200x200/000/fff.jpg" class="rounded float-left mr-4" style="width: 200px; height: 200px;" alt="Teste">
+                        <h5 class="card-title">{{ listing.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Created: {{ listing.date_created }}</h6>
+                        <span class="badge badge-info">{{ listing.category }}</span>
+                        <p class="card-text">{{ listing.description }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                Sorry, no listing.
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

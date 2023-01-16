@@ -10,7 +10,11 @@ from .models import User, Listing
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    user = User.objects.get(username=request.user)
+    listings = Listing.objects.all()
+    return render(request, "auctions/index.html", context={
+        "listings": listings,
+    })
 
 @login_required(login_url='/login')
 def add_listing(request):
