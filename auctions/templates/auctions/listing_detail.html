@@ -1,0 +1,44 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Listing: {{ listing.title }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-start">
+                <img src="https://dummyimage.com/200x200/000/fff.jpg" class="rounded" alt="Teste">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="mt-2 mb-2">{{ listing.description }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>${{ bid.value }}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <form action="{% url 'listing_detail' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group ">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" class="form-control" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Place bid</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

@@ -2,21 +2,31 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .forms import ListingForm
-from .models import User, Listing
+from .models import User, Listing, Bid
 
 
 def index(request):
     listings = Listing.objects.filter(is_active=True)
-    
+
     return render(request, "auctions/index.html", context={
         "listings": listings,
     })
 
-@login_required(login_url='/login')
+
+def listing_detail(request, listing_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+    best_bid = Bid.objects.filter(listing=listing_id).order_by('value').last()
+    return render(request, "auctions/listing_detail.html", context={
+        "listing": listing,
+        "bid": best_bid,
+    })
+
+
+@login_required(login_url="/login")
 def add_listing(request):
     form = ListingForm()
     if request.method == "POST":

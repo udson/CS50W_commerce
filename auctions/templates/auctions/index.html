@@ -14,7 +14,9 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <img src="https://dummyimage.com/200x200/000/fff.jpg" class="rounded float-left mr-4" style="width: 200px; height: 200px;" alt="Teste">
-                        <h5 class="card-title">{{ listing.title }}</h5>
+                        <h5 class="card-title">
+                            <a href="{% url 'listing_detail' listing.id %}">{{ listing.title }}</a>
+                        </h5>
                         <h6 class="card-subtitle mb-2 text-muted">Created: {{ listing.date_created }}</h6>
                         <span class="badge badge-info">{{ listing.category }}</span>
                         <p class="card-text">{{ listing.description }}</p>
