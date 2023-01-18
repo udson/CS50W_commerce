@@ -5,6 +5,9 @@
         <div class="row">
             <div class="col">
                 <h2>Listing: {{ listing.title }}</h2>
+                <h6 class="card-subtitle mb-2 text-muted">Created: {{ listing.date_created }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Listed by: {{ listing.user }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Category: <span class="badge badge-info">{{ listing.category }}</span></h6>
             </div>
         </div>
         <div class="row">
