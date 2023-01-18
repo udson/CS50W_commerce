@@ -63,7 +63,8 @@ def add_listing(request):
                 user=User.objects.get(pk=request.user.id), title=form.cleaned_data["title"],
                 description=form.cleaned_data["description"],
                 starting_price=form.cleaned_data["starting_price"],
-                category=form.cleaned_data['category']
+                category=form.cleaned_data["category"],
+                image=form.cleaned_data["image"]
             )
             new_listing.save()
             return HttpResponseRedirect(reverse("index"))

@@ -13,7 +13,7 @@
             {% for listing in listings %}
                 <div class="card mb-3">
                     <div class="card-body">
-                        <img src="https://dummyimage.com/200x200/000/fff.jpg" class="rounded float-left mr-4" style="width: 200px; height: 200px;" alt="Teste">
+                        <img src="{{ listing.image|default:'https://dummyimage.com/200x200/404040/ffffff.jpg&text=No+Image' }}" class="img-fluid rounded float-left mr-4" style="width: 200px; height: 200px;" alt="Teste">
                         <h5 class="card-title">
                             <a href="{% url 'listing_detail' listing.id %}">{{ listing.title }}</a>
                         </h5>

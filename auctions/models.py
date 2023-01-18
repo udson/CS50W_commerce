@@ -21,6 +21,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     category = models.ForeignKey(to=Category, on_delete=models.PROTECT, blank=True, null=True)
+    image = models.URLField(blank=True, null=True)
     starting_price = models.DecimalField(max_digits=20, decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
