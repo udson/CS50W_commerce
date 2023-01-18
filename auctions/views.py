@@ -18,12 +18,39 @@ def index(request):
 
 
 def listing_detail(request, listing_id):
+    context = {}
+    user = request.user
     listing = get_object_or_404(Listing, pk=listing_id)
     best_bid = Bid.objects.filter(listing=listing_id).order_by('value').last()
-    return render(request, "auctions/listing_detail.html", context={
-        "listing": listing,
-        "bid": best_bid,
-    })
+
+    if request.method == "POST":
+        if user.is_authenticated:
+            try:
+                bid = float(request.POST["bid"])
+                best_bid_value = listing.starting_price
+
+                if best_bid is not None:
+                    best_bid_value = best_bid.value
+                
+                if bid > best_bid_value:
+                    print("bid > best_bid_value")
+                    new_bid = Bid(
+                        user=User.objects.get(pk=request.user.id),
+                        listing=listing,
+                        value=bid
+                    )
+                    new_bid.save()
+                    best_bid = new_bid
+                else:
+                    context["bid_error"] = f"Place a bid greater than ${best_bid_value}."
+            except ValueError:
+                context["bid_error"] = "This field is required." if request.POST["bid"] == "" else "Enter a number."
+        context["bid_error"] = "Login to place a bid."
+
+    context["listing"] = listing
+    context["best_bid"] = best_bid
+
+    return render(request, "auctions/listing_detail.html", context=context)
 
 
 @login_required(login_url="/login")
