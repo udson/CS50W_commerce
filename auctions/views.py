@@ -75,6 +75,16 @@ def add_listing(request):
 
 
 @login_required(login_url="/login")
+def watchlist(request):
+    user = User.objects.get(pk=request.user.id)
+
+    return render(request, "auctions/index.html", context={
+        "page_heading": "My Watchlist",
+        "listings":user.watchlist.all(),
+    })
+
+
+@login_required(login_url="/login")
 def add_watchlist_item(request):
     pass
 

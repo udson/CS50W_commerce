@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2>Active Listings <span class="badge badge-secondary">{{ listings|length }}</span></h2>
+                <h2>{{ page_heading | default:"Active Listings"}}</h2>
             </div>
         </div>
         <hr>
@@ -13,7 +13,7 @@
             {% for listing in listings %}
                 <div class="card mb-3">
                     <div class="card-body">
-                        <img src="{{ listing.image|default:'https://dummyimage.com/200x200/404040/ffffff.jpg&text=No+Image' }}" class="img-fluid rounded float-left mr-4" style="width: 200px; height: 200px;" alt="Teste">
+                        <img src="{{ listing.image|default:'https://dummyimage.com/200x200/404040/ffffff.jpg&text=No+Image' }}" class="img-fluid rounded float-left mr-4" style="width: 200px; height: 200px;" alt="No image">
                         <h5 class="card-title">
                             <a href="{% url 'listing_detail' listing.id %}">{{ listing.title }}</a>
                         </h5>
