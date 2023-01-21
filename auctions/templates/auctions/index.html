@@ -19,6 +19,7 @@
                         </h5>
                         <h6 class="card-subtitle mb-2 text-muted">Created: {{ listing.date_created }}</h6>
                         <span class="badge badge-info">{{ listing.category }}</span>
+                        {% if listing in user.watchlist.all %}<span class="badge badge-info" title="In Watchlist"><i class="fa-solid fa-eye"></i></span>{% endif %}
                         <p class="card-text">{{ listing.description }}</p>
                     </div>
                 </div>

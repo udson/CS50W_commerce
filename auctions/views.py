@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .forms import ListingForm
-from .models import User, Listing, Bid
+from .models import *
 
 
 def index(request):
@@ -72,6 +72,11 @@ def add_listing(request):
     return render(request, "auctions/add_listing.html", context={
         "form": form,
     })
+
+
+@login_required(login_url="/login")
+def add_watchlist_item(request):
+    pass
 
 
 def login_view(request):
