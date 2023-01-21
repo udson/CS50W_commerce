@@ -24,9 +24,12 @@
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add_listing' %}">Add Listing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Watchlist <span class="badge badge-info">{{ user.watchlist|length }}</span></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                </li>
                 </li>
             {% else %}
                 <li class="nav-item">
