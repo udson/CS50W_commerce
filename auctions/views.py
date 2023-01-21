@@ -85,8 +85,17 @@ def watchlist(request):
 
 
 @login_required(login_url="/login")
-def add_watchlist_item(request):
-    pass
+def watchlist_add_item(request, listing_id):
+    user = User.objects.get(pk=request.user.id)
+    user.watchlist.add(get_object_or_404(Listing, pk=listing_id))
+    return HttpResponseRedirect(reverse("listing_detail", args=[listing_id]))
+
+
+@login_required(login_url="/login")
+def watchlist_remove_item(request, listing_id):
+    user = User.objects.get(pk=request.user.id)
+    user.watchlist.remove(get_object_or_404(Listing, pk=listing_id))
+    return HttpResponseRedirect(reverse("listing_detail", args=[listing_id]))
 
 
 def login_view(request):
