@@ -64,7 +64,7 @@
         <div class="row">
             {% if listing.user == user and listing.is_active %}
             <div class="col-3">
-                <a href="{% url 'close_listing' listing.id %}" class="btn btn-success">Close this listing</a>
+                <a href="{% url 'close_listing' listing.id %}" class="btn btn-success">Close this auction</a>
             </div>
             {% endif %}
             <div class="col-3">
