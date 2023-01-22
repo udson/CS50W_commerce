@@ -38,3 +38,13 @@ class Bid(models.Model):
 
     def __str__(self) -> str:
         return f"{self.value} on {self.listing} by {self.user}"
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    listing = models.ForeignKey(to=Listing, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField()
+
+    def __str__(self) -> str:
+        return f"{self.pk} - {self.user} on {self.listing}"
