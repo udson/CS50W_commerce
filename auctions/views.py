@@ -109,6 +109,19 @@ def watchlist_remove_item(request, listing_id):
     return HttpResponseRedirect(reverse("listing_detail", args=[listing_id]))
 
 
+def categories(request):
+    return render(request, "auctions/categories.html", context={
+        "categories": Category.objects.all(),
+    })
+
+def category(request, category):
+    
+    return render(request, "auctions/index.html", context={
+        "page_heading": f"Category: {get_object_or_404(Category, pk=category)}",
+        "listings": Listing.objects.filter(category__pk=category, is_active=True),
+    })
+
+
 def login_view(request):
     if request.method == "POST":
 

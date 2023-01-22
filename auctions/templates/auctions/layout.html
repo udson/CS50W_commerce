@@ -21,6 +21,9 @@
             <li class="nav-item">
                 <a class="nav-link btn btn-primary mr-2" href="{% url 'index' %}">Active Listings</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-primary mr-2" href="{% url 'categories' %}">Categories</a>
+            </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary mr-2" href="{% url 'add_listing' %}">Add Listing</a>
