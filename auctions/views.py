@@ -33,7 +33,6 @@ def listing_detail(request, listing_id):
                     best_bid_value = best_bid.value
                 
                 if bid > best_bid_value:
-                    print("bid > best_bid_value")
                     new_bid = Bid(
                         user=User.objects.get(pk=request.user.id),
                         listing=listing,
@@ -45,7 +44,8 @@ def listing_detail(request, listing_id):
                     context["bid_error"] = f"Place a bid greater than ${best_bid_value}."
             except ValueError:
                 context["bid_error"] = "This field is required." if request.POST["bid"] == "" else "Enter a number."
-        context["bid_error"] = "Login to place a bid."
+        else:
+            context["bid_error"] = "Login to place a bid."
 
     context["listing"] = listing
     context["best_bid"] = best_bid
@@ -72,6 +72,17 @@ def add_listing(request):
     return render(request, "auctions/add_listing.html", context={
         "form": form,
     })
+
+
+@login_required(login_url="/login")
+def close_listing(request, listing_id):
+    user = User.objects.get(pk=request.user.id)
+    listing = get_object_or_404(Listing, pk=listing_id)
+    if listing.user == user:
+        listing.is_active = False
+        listing.save()
+    
+    return HttpResponseRedirect(reverse("listing_detail", args=[listing_id]))
 
 
 @login_required(login_url="/login")

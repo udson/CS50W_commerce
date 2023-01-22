@@ -22,9 +22,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <h4>${{ best_bid.value|default:listing.starting_price|floatformat:2 }}</h4>
+                <h4>Current bid: ${{ best_bid.value|default:listing.starting_price|floatformat:2 }}</h4>{% if best_bid.user == user %}<small>Your bid is the current bid.</small>{% endif %}
             </div>
         </div>
+        {% if listing.is_active %}
         <div class="row">
             <div class="col-4">
                 <form action="{% url 'listing_detail' listing.id %}" method="post">
@@ -43,15 +44,37 @@
                     </div>
                 </form>
             </div>
-        {% if user.is_authenticated %}
-            <div class="col-3">
-            {% if listing in user.watchlist.all %}
-                <a href="{% url 'watchlist_remove' listing.id %}" class="btn btn-danger">Remove from watchlist</a>
-            {% else %}
-                <a href="{% url 'watchlist_add' listing.id %}" class="btn btn-primary">Add to watchlist</a>
-            {% endif %}
-            </div>
-        {% endif %}
         </div>
+        {% else %}
+        <div class="row">
+            <div class="col">
+                {% if best_bid.user == user %}
+                <div class="alert alert-success text-center" role="alert">
+                    <h3><span><i class="fa-solid fa-trophy"></i></span> Congratulations! You won this auction! <span><i class="fa-solid fa-trophy"></i></span></h3>
+                </div>
+                {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    <h3>This auction is closed.</h3>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <div class="row">
+            {% if listing.user == user and listing.is_active %}
+            <div class="col-3">
+                <a href="{% url 'close_listing' listing.id %}" class="btn btn-success">Close this listing</a>
+            </div>
+            {% endif %}
+            <div class="col-3">
+                {% if listing in user.watchlist.all %}
+                <a href="{% url 'watchlist_remove' listing.id %}" class="btn btn-danger">Remove from watchlist</a>
+                {% else %}
+                <a href="{% url 'watchlist_add' listing.id %}" class="btn btn-primary">Add to watchlist</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
     </div>
 {% endblock body %}
