@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from .forms import ListingForm
+from .forms import *
 from .models import *
 
 
@@ -86,6 +86,25 @@ def close_listing(request, listing_id):
 
 
 @login_required(login_url="/login")
+def add_comment(request, listing_id):
+    user = User.objects.get(pk=request.user.id)
+    listing = get_object_or_404(Listing, pk=listing_id)
+    comment_form = CommentForm()
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            new_comment = Comment(
+                user=user, listing=listing,
+                comment=comment_form.cleaned_data["comment"]
+            )
+            new_comment.save()
+
+    return HttpResponseRedirect(reverse("add_comment", args=[listing_id]))
+
+
+@login_required(login_url="/login")
 def watchlist(request):
     user = User.objects.get(pk=request.user.id)
 
@@ -113,6 +132,7 @@ def categories(request):
     return render(request, "auctions/categories.html", context={
         "categories": Category.objects.all(),
     })
+
 
 def category(request, category):
     return render(request, "auctions/index.html", context={

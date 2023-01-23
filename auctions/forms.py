@@ -1,7 +1,8 @@
 from django import forms
-from .models import Listing
+from .models import *
 
 custom = {'class': 'form-control'}
+
 
 class ListingForm(forms.ModelForm):
     template_name = 'bootstrap_form_snippet.html'
@@ -16,3 +17,9 @@ class ListingForm(forms.ModelForm):
             'image': forms.URLInput(attrs=custom),
             'starting_price': forms.NumberInput(attrs=custom),
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment',]
