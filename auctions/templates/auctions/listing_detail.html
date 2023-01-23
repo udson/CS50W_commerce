@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <h4>Current bid: ${{ best_bid.value|default:listing.starting_price|floatformat:2 }}</h4>{% if best_bid.user == user %}<small>Your bid is the current bid.</small>{% endif %}
+                <h4>Current price: ${{ best_bid.value|default:listing.starting_price|floatformat:2 }}</h4>{% if best_bid.user == user %}<small>Your bid is the current bid.</small>{% endif %}
             </div>
         </div>
         {% if listing.is_active %}

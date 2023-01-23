@@ -101,7 +101,7 @@ def add_comment(request, listing_id):
             )
             new_comment.save()
 
-    return HttpResponseRedirect(reverse("add_comment", args=[listing_id]))
+    return HttpResponseRedirect(reverse("listing_detail", args=[listing_id]))
 
 
 @login_required(login_url="/login")
